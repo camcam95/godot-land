@@ -1,0 +1,36 @@
+[gd_scene format=3 uid="uid://dxvmv7v11p6rb"]
+
+[ext_resource type="Script" uid="uid://bwvuv2l8t6dwy" path="res://Scripts/Obstacle.gd" id="1_2sxyv"]
+[ext_resource type="Texture2D" uid="uid://cpjwdxtikyr11" path="res://Assets/obstacles.png" id="1_uh273"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2sxyv"]
+size = Vector2(64, 448)
+
+[node name="Obstacle" type="Area2D" unique_id=19489325 groups=["obstacles"]]
+disable_mode = 2
+script = ExtResource("1_2sxyv")
+
+[node name="TopCollisionShape" type="CollisionShape2D" parent="." unique_id=689897247]
+shape = SubResource("RectangleShape2D_2sxyv")
+
+[node name="BottomCollisonShape" type="CollisionShape2D" parent="." unique_id=757199163]
+position = Vector2(0, 578)
+shape = SubResource("RectangleShape2D_2sxyv")
+
+[node name="TopSprite" type="Sprite2D" parent="." unique_id=883095309]
+texture = ExtResource("1_uh273")
+region_enabled = true
+region_rect = Rect2(0, 0, 64, 448)
+
+[node name="BottomSprite" type="Sprite2D" parent="." unique_id=225947476]
+position = Vector2(0, 578)
+texture = ExtResource("1_uh273")
+region_enabled = true
+region_rect = Rect2(64, 0, 64, 448)
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="." unique_id=540441139]
+position = Vector2(22, 299)
+rect = Rect2(-10, -15, 20, 25)
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]

@@ -1,0 +1,42 @@
+[gd_scene format=3 uid="uid://cmwd85m77om1"]
+
+[ext_resource type="PackedScene" uid="uid://dkfl30xkvmble" path="res://Scenes/Player.tscn" id="1_glv2v"]
+[ext_resource type="Script" uid="uid://bdr8rdki53ro0" path="res://Main.gd" id="1_r0du0"]
+[ext_resource type="PackedScene" uid="uid://cv54siqw7waj5" path="res://Scenes/GUI.tscn" id="3_r0du0"]
+[ext_resource type="Texture2D" uid="uid://b8217tuekhd7t" path="res://Assets/background.png" id="4_cm0pq"]
+
+[node name="Main" type="Node" unique_id=240006063 groups=["obstacles"]]
+script = ExtResource("1_r0du0")
+
+[node name="TextureRect" type="TextureRect" parent="." unique_id=1401784215]
+z_index = -1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("4_cm0pq")
+expand_mode = 1
+stretch_mode = 1
+
+[node name="Player" parent="." unique_id=1711336729 instance=ExtResource("1_glv2v")]
+
+[node name="PlayerStartPosition" type="Marker2D" parent="." unique_id=2081359248]
+position = Vector2(360, 240)
+
+[node name="GUI" parent="." unique_id=913042472 instance=ExtResource("3_r0du0")]
+z_index = 1
+
+[node name="ObstacleSpawnTimer" type="Timer" parent="." unique_id=318807867]
+wait_time = 2.0
+
+[node name="ScoreTimer" type="Timer" parent="." unique_id=1565783340]
+wait_time = 2.0
+
+[node name="StartTimer" type="Timer" parent="." unique_id=438063270]
+one_shot = true
+
+[connection signal="start" from="GUI" to="." method="_on_gui_start"]
+[connection signal="timeout" from="ObstacleSpawnTimer" to="." method="_on_obstacle_spawn_timer_timeout"]
+[connection signal="timeout" from="ScoreTimer" to="." method="_on_score_timer_timeout"]
+[connection signal="timeout" from="StartTimer" to="." method="_on_start_timer_timeout"]
